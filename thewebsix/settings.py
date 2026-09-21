@@ -37,10 +37,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'accounts.apps.AccountsConfig',
-    'hikes.apps.HikesConfig',
-    'bookings.apps.BookingsConfig',
-    'community.apps.CommunityConfig',
+    'accounts',
+    'hikes',
+    'bookings',
+    'community',
 ]
 
 MIDDLEWARE = [
