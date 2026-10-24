@@ -1,0 +1,54 @@
+{% extends "community/base.html" %}
+{% block title %}Post Details | Dina Arobi Hikes{% endblock %}
+{% block content %}
+<section class="da-page">
+  <div class="da-container da-detail-container">
+    <h2 class="da-heading">POST DETAILS</h2>
+    <div class="da-detail-page-panel">
+      <div class="da-detail-author">
+        <div class="da-avatar">{{ post.author.username|first|upper }}</div>
+        <div>
+          <h3>{{ post.author.username }}</h3>
+          <span class="da-muted">{{ post.created_at|date:"d M Y, H:i" }}</span>
+        </div>
+      </div>
+      <div class="da-detail-caption"><p class="da-preserve-lines">{{ post.caption }}</p></div>
+      {% if post.image %}
+      <div class="da-detail-image-container">
+        <img src="{{ post.image.url }}" alt="Community post" class="da-detail-image">
+      </div>
+      {% endif %}
+      <div class="da-detail-stats">
+        <span>👍 {{ post.likes.count }}</span>
+        <span>💬 {{ post.comments.count }}</span>
+      </div>
+      <div class="da-detail-comments">
+        <h4>Comments</h4>
+        {% for comment in post.comments.all %}
+        <div class="da-comment-card">
+          <div class="da-comment-author">
+            <div class="da-comment-avatar">{{ comment.author.username|first|upper }}</div>
+            <div>
+              <strong>{{ comment.author.username }}</strong>
+              <span class="da-muted">{{ comment.created_at|date:"d M Y, H:i" }}</span>
+            </div>
+          </div>
+          <p>{{ comment.text }}</p>
+        </div>
+        {% empty %}
+        <p class="da-muted">No comments yet.</p>
+        {% endfor %}
+      </div>
+    </div>
+    <div class="da-detail-links">
+      {% if request.user.is_authenticated %}
+      <a href="{% url 'community:comment_create' post.pk %}" class="da-button da-button-yellow da-button-compact">💬 Add Comment</a>
+      {% endif %}
+      {% if request.user == post.author or request.user.is_staff %}
+      <a href="{% url 'community:post_delete' post.pk %}" class="da-text-link da-delete-link">🗑 Delete Post</a>
+      {% endif %}
+      <a href="{% url 'community:community' %}" class="da-back-link">‹ Back to Community</a>
+    </div>
+  </div>
+</section>
+{% endblock %}
