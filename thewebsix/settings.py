@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'accounts',
     'hikes',
     'bookings',
-    'community',
+    'community.apps.CommunityConfig',
 ]
 
 MIDDLEWARE = [
